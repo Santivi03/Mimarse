@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimarse Estudio | Pilates & Fit</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta name="description" content="Mimarse Estudio - Clases de Pilates y Mimarse Fit.">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo-container nav-link" data-target="view-pilates">
+                <img src="logo.png" alt="Logo Mimarse" class="logo-img">
+                <span class="logo-text">Mimarse Estudio</span>
+            </a>
+            
+            <button class="menu-btn" aria-label="Menú">
+                ☰
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-target="view-pilates">Pilates</a></li>
+                <li><a href="#" class="nav-link" data-target="view-fit">Mimarse Fit</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- VISTA PILATES -->
+        <div id="view-pilates" class="view active">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Tu espacio de Pilates y Fitness</h1>
+                    <p>Clases grupales. Un espacio para mimarse física y mentalmente ✨<br>📍 Sede Pilates: Marcos Sastre y Cuenca - Villa del Parque</p>
+                    <a href="#contacto" class="btn">Reserva tu clase</a>
+                </div>
+            </section>
+
+            <section id="clases" class="clases-section">
+                <h2 class="section-title">Nuestras Clases de Pilates</h2>
+                <p style="text-align: center; margin-top: -2rem; margin-bottom: 3rem; font-weight: 500; font-size: 1.1rem; color: var(--primary-color);">
+                    Clases adaptadas a: embarazadas | adultos mayores | todos los niveles
+                </p>
+                <div class="grid-container">
+                    <div class="grid-card">
+                        <h3>Pilates Reformer</h3>
+                        <p>Mejora tu postura, flexibilidad y fuerza en nuestras camas reformer.</p>
+                    </div>
+                    <div class="grid-card">
+                        <h3>Pilates Stretching</h3>
+                        <p>Conecta con tu cuerpo a través de estiramientos profundos y controlados para liberar tensiones.</p>
+                    </div>
+                    <div class="grid-card">
+                        <h3>Yoga Pilates</h3>
+                        <p>La combination perfecta entre la respiración del yoga y la fuerza del pilates en una sola clase.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VISTA FIT -->
+        <div id="view-fit" class="view">
+            <section id="fit" style="padding-top: 100px;">
+                <h1 class="section-title">Mimarse Fit</h1>
+                <p style="text-align: center; max-width: 600px; margin: 0 auto 3rem auto; font-size: 1.2rem;">
+                    📍 Sede FIT: Campana 2592 - Villa del Parque<br><br>
+                    Grilla de horarios y clases. Encuentra tu clase ideal.
+                </p>
+                
+                <div class="schedule-container">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Horario</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miércoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>8 HS</td>
+                                <td></td>
+                                <td><span class="class-name">Yoga Terapéutico</span></td>
+                                <td></td>
+                                <td><span class="class-name">Yoga Terapéutico</span></td>
+                                <td><span class="class-name">Funcional</span></td>
+                            </tr>
+                            <tr>
+                                <td>9 HS</td>
+                                <td><span class="class-name">Funcional</span></td>
+                                <td><span class="class-name">Funcional</span></td>
+                                <td><span class="class-name">GAP</span><span class="class-desc">(glúteos, abdomen y piernas)</span></td>
+                                <td><span class="class-name">GAP</span><span class="class-desc">(glúteos, abdomen y piernas)</span></td>
+                                <td><span class="class-name">GAP</span><span class="class-desc">(glúteos, abdomen y piernas)</span></td>
+                            </tr>
+                            <tr>
+                                <td>10 HS</td>
+                                <td><span class="class-name">Stretching Power</span></td>
+                                <td><span class="class-name">Stretching</span></td>
+                                <td><span class="class-name">Jump</span></td>
+                                <td><span class="class-name">Stretching</span></td>
+                                <td><span class="class-name">Yoga Suave</span></td>
+                            </tr>
+                            <tr>
+                                <td>11 HS</td>
+                                <td><span class="class-name">Fit Dance</span></td>
+                                <td><span class="class-name">Gym en Silla</span></td>
+                                <td><span class="class-name">Stretching</span></td>
+                                <td><span class="class-name">Gym en Silla</span></td>
+                                <td><span class="class-name">Jump</span></td>
+                            </tr>
+                            <tr>
+                                <td>15 HS</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><span class="class-name">GAP</span><span class="class-desc">(glúteos, abdomen y piernas)</span></td>
+                            </tr>
+                            <tr>
+                                <td>16 HS</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><span class="class-name">Gym en Silla</span></td>
+                            </tr>
+                            <tr>
+                                <td>17 HS</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><span class="class-name">Yoga Power</span></td>
+                            </tr>
+                            <tr>
+                                <td>18 HS</td>
+                                <td><span class="class-name">Funcional</span></td>
+                                <td></td>
+                                <td><span class="class-name">Funcional</span></td>
+                                <td><span class="class-name">Jump</span></td>
+                                <td><span class="class-name">Yoga Integral</span></td>
+                            </tr>
+                            <tr>
+                                <td>19 HS</td>
+                                <td><span class="class-name">Funcional</span></td>
+                                <td></td>
+                                <td><span class="class-name">Funcional</span></td>
+                                <td><span class="class-name">Jump</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>20 HS</td>
+                                <td><span class="class-name">Funcional</span></td>
+                                <td></td>
+                                <td><span class="class-name">Funcional</span></td>
+                                <td><span class="class-name">Stretching</span></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- CONTACTO GLOBAL -->
+        <section id="contacto">
+            <h2 class="section-title">Contáctanos</h2>
+            <div class="contact-card">
+                <p>Ya nos pueden hablar por WhatsApp para agendar su número, ¡y cualquier duda o consulta que tengan nos escriben!</p>
+                <a href="https://wa.me/5491144092801" target="_blank" rel="noopener noreferrer">
+                    💬 WhatsApp: 11 4409-2801
+                </a>
+                <a href="https://www.instagram.com/mimarse.estudio/" target="_blank" rel="noopener noreferrer">
+                    📷 @mimarse.estudio
+                </a>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">📍 Sede Pilates: Marcos Sastre y Cuenca<br>📍 Sede FIT: Campana 2592<br>Villa del Parque</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mimarse Estudio. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Música de fondo y botón -->
+    <audio id="bg-music" src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" loop></audio>
+    <button id="music-toggle" class="music-btn" title="Reproducir música">🎵</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
