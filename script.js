@@ -30,13 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 views.forEach(view => view.classList.remove('active'));
                 document.getElementById(targetId).classList.add('active');
                 
-                // Update body theme
-                if(targetId === 'view-fit') {
-                    document.body.classList.add('dark-theme');
-                } else {
-                    document.body.classList.remove('dark-theme');
-                }
-                
                 // Close mobile menu
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
@@ -115,6 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
         ball.style.animationDelay = `${Math.random() * 10}s`;
         
         ballsContainer.appendChild(ball);
+    }
+
+    // Global Theme Toggle
+    const themeSwitch = document.getElementById('theme-switch');
+    if (themeSwitch) {
+        themeSwitch.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+        });
     }
 
     // Lógica para la música de fondo
