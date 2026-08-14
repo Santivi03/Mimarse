@@ -33,75 +33,7 @@ body {
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
-/* Tema Oscuro Global */
-body.dark-theme {
-    background-color: var(--primary-color);
-    color: white;
-}
 
-body.dark-theme .navbar {
-    background: transparent;
-}
-
-body.dark-theme header {
-    background: rgba(27, 36, 50, 0.95);
-}
-
-body.dark-theme .section-title {
-    color: white;
-}
-
-body.dark-theme .nav-link {
-    color: white;
-}
-
-body.dark-theme .nav-link.active {
-    color: var(--accent-color);
-}
-
-body.dark-theme .logo-text {
-    color: white;
-}
-
-body.dark-theme .clases-subtitle {
-    color: var(--accent-color);
-}
-
-body.dark-theme .btn {
-    background: var(--accent-color);
-    color: var(--primary-color);
-}
-
-body.dark-theme .grid-card, body.dark-theme .contact-card {
-    background: rgba(255,255,255,0.05);
-    color: #e0e0e0;
-}
-
-body.dark-theme .grid-card h3, body.dark-theme .contact-card h2 {
-    color: var(--accent-color);
-}
-
-body.dark-theme .schedule-container {
-    background: rgba(255,255,255,0.05);
-}
-
-body.dark-theme .schedule-table td {
-    background-color: rgba(255,255,255,0.05);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-body.dark-theme .schedule-table th {
-    color: var(--accent-color);
-}
-
-body.dark-theme .schedule-table td:first-child {
-    background-color: rgba(255,255,255,0.1);
-}
-
-body.dark-theme .class-name {
-    color: var(--accent-color);
-}
 
 /* Header & Navbar */
 header {
@@ -183,6 +115,20 @@ header {
     color: var(--accent-color);
 }
 
+.music-btn-nav {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--navbar-text);
+    transition: transform 0.3s;
+    margin-left: 10px;
+}
+
+.music-btn-nav:hover {
+    transform: scale(1.1);
+}
+
 /* Mobile Menu Button */
 .menu-btn {
     display: none;
@@ -233,6 +179,14 @@ header {
     font-size: 1.2rem;
     margin-bottom: 2.5rem;
     opacity: 0.8;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
 }
 
 .btn {
@@ -342,9 +296,7 @@ footer {
     opacity: 0.6;
 }
 
-body.dark-theme .pilates-ball {
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-}
+
 
 @keyframes float {
     0% { transform: translateY(0) rotate(0deg); }
@@ -353,30 +305,25 @@ body.dark-theme .pilates-ball {
     100% { transform: translateY(0) rotate(360deg); }
 }
 
-/* Botón de Música */
-.music-btn {
+/* Burbuja Flotante WhatsApp */
+.whatsapp-float {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    background-color: #25d366;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    transition: transform 0.3s, background-color 0.3s;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
 }
 
-.music-btn:hover {
+.whatsapp-float:hover {
     transform: scale(1.1);
-    background-color: var(--primary-color);
 }
 
 /* Responsive Styles */
@@ -540,104 +487,7 @@ body.dark-theme .pilates-ball {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
-}
-
-/* Theme Toggle (Cartwheel Person) */
-.theme-toggle-li {
-    display: flex;
-    align-items: center;
-    margin-left: 1rem;
-}
-
-.theme-toggle {
-    position: relative;
-    width: 60px;
-    height: 30px;
-    display: inline-block;
-}
-
-.theme-toggle input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #87CEEB; /* Cielo de día */
-    border-radius: 30px;
-    transition: 0.4s;
-    overflow: hidden;
-    border: 2px solid rgba(255,255,255,0.5);
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-}
-
-.toggle-slider:before {
-    content: "";
-    position: absolute;
-    height: 22px;
-    width: 22px;
-    left: 4px;
-    bottom: 2px;
-    background-color: #FDB813; /* Sol */
-    border-radius: 50%;
-    transition: 0.4s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 10;
-}
-
-/* Persona haciendo la pose */
-.pilates-pose {
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    left: 5px;
-    bottom: 3px;
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    z-index: 11;
-}
-
-.pilates-pose path, .pilates-pose circle {
-    fill: none;
-    stroke: var(--primary-color);
-    transition: 0.4s;
-}
-
-.pilates-pose circle {
-    fill: var(--primary-color);
-}
-
-/* Estado Activo (Modo Oscuro) */
-input:checked + .toggle-slider {
-    background-color: #1b2432; /* Cielo de noche */
-}
-
-input:checked + .toggle-slider:before {
-    transform: translateX(30px);
-    background-color: #fdfbf7; /* Luna */
-    box-shadow: inset -4px -2px 0px 0px #e0e0e0;
-}
-
-input:checked + .toggle-slider .pilates-pose {
-    transform: translateX(30px);
-}
-
-input:checked + .toggle-slider .pilates-pose path {
-    stroke: #1b2432;
-}
-
-input:checked + .toggle-slider .pilates-pose circle {
-    fill: #1b2432;
-    stroke: #1b2432;
-}
-
-@media (max-width: 768px) {
-    .theme-toggle-li {
-        margin: 1rem 0;
-        justify-content: center;
-    }
+  }
 
     /* Ajustes de grilla de horarios para celular */
     .schedule-container {

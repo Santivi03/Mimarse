@@ -9,34 +9,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // SPA Navigation Logic
-    const navLinksArray = document.querySelectorAll('.nav-link[data-target]');
+    // SPA Navigation Logic (Branch Buttons)
+    const branchBtns = document.querySelectorAll('.btn-branch');
     const views = document.querySelectorAll('.view');
     
-    navLinksArray.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const targetId = link.getAttribute('data-target');
+    branchBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const targetId = btn.getAttribute('data-target');
             if(!targetId) return;
             
-            // Allow default behavior for external/anchor links, but prevent for view switching
-            if(targetId.startsWith('view-')) {
-                e.preventDefault();
+            // Update active view
+            views.forEach(view => view.classList.remove('active'));
+            const targetView = document.getElementById(targetId);
+            if (targetView) {
+                targetView.classList.add('active');
                 
-                // Update active link
-                navLinksArray.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-                
-                // Update active view
-                views.forEach(view => view.classList.remove('active'));
-                document.getElementById(targetId).classList.add('active');
-                
-                // Close mobile menu
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                }
-                
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Scroll down to the view smoothly
+                setTimeout(() => {
+                    targetView.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 100);
             }
         });
     });
@@ -110,17 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ballsContainer.appendChild(ball);
     }
 
-    // Global Theme Toggle
-    const themeSwitch = document.getElementById('theme-switch');
-    if (themeSwitch) {
-        themeSwitch.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                document.body.classList.add('dark-theme');
-            } else {
-                document.body.classList.remove('dark-theme');
-            }
-        });
-    }
+
 
     // Lógica para la música de fondo
     const musicBtn = document.getElementById('music-toggle');

@@ -26,42 +26,27 @@
             </button>
 
             <ul class="nav-links">
-                <li><a href="#" class="nav-link active" data-target="view-pilates">Pilates</a></li>
-                <li><a href="#" class="nav-link" data-target="view-fit">Fit</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-                <li class="theme-toggle-li">
-                    <label class="theme-toggle" title="Cambiar modo claro/oscuro">
-                        <input type="checkbox" id="theme-switch">
-                        <div class="toggle-slider">
-                            <svg class="pilates-pose" viewBox="0 0 100 100">
-                                <!-- Cabeza -->
-                                <circle cx="32" cy="55" r="8" />
-                                <!-- Brazos -->
-                                <path d="M40 50 L20 85" stroke-width="8" stroke-linecap="round" />
-                                <!-- Torso -->
-                                <path d="M40 50 L65 35" stroke-width="8" stroke-linecap="round" />
-                                <!-- Pierna al piso -->
-                                <path d="M65 35 L85 85" stroke-width="8" stroke-linecap="round" />
-                                <!-- Pierna arriba -->
-                                <path d="M65 35 L60 5" stroke-width="8" stroke-linecap="round" />
-                            </svg>
-                        </div>
-                    </label>
-                </li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                <li><button id="music-toggle" class="music-btn-nav" title="Reproducir música">🎵</button></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- VISTA PILATES -->
-        <div id="view-pilates" class="view active">
-            <section class="hero">
-                <div class="hero-content">
-                    <h1>Tu espacio de Pilates y Fitness</h1>
-                    <p>Clases grupales. Un espacio para mimarse física y mentalmente ✨<br>📍 Sede Pilates: Marcos Sastre y Cuenca - Villa del Parque</p>
-                    <a href="#contacto" class="btn">Reserva tu clase</a>
+        <!-- PANTALLA PRINCIPAL (HERO) -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>Mimarse Estudio</h1>
+                <p>Un espacio para MIMARSE física y mentalmente ✨<br>Clases de Pilates y Mimarse Fit en Villa del Parque.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-branch" data-target="view-pilates">Mimarse Pilates</button>
+                    <button class="btn btn-branch" data-target="view-fit">Mimarse Fit</button>
                 </div>
-            </section>
+            </div>
+        </section>
+
+        <!-- VISTA PILATES -->
+        <div id="view-pilates" class="view">
 
             <section id="clases" class="clases-section">
                 <h2 class="section-title">Nuestras Clases de Pilates</h2>
@@ -219,9 +204,15 @@
         <p>&copy; 2024 Mimarse Estudio. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Música de fondo y botón -->
+    <!-- Burbuja WhatsApp -->
+    <a href="https://wa.me/5491144092801" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat de WhatsApp">
+        <svg viewBox="0 0 24 24" fill="white" width="35" height="35">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.22 5.22 0 0 0-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <!-- Música de fondo (botón movido al menú arriba) -->
     <audio id="bg-music" src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" loop></audio>
-    <button id="music-toggle" class="music-btn" title="Reproducir música">🎵</button>
 
     <script src="script.js"></script>
 </body>
