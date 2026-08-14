@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     branchBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
+            e.preventDefault();
             const targetId = btn.getAttribute('data-target');
             if(!targetId) return;
             
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.grid-card, .contact-card').forEach(el => {
+    document.querySelectorAll('.grid-card, .contact-card, .review-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
@@ -105,20 +106,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    // Carrusel de Clientes
+    const track = document.querySelector('.carousel-track');
+    if(track) {
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.next-btn');
+        const prevButton = document.querySelector('.prev-btn');
+        let currentIndex = 0;
 
-    // Lógica para la música de fondo
-    const musicBtn = document.getElementById('music-toggle');
-    const bgMusic = document.getElementById('bg-music');
-    
-    if (musicBtn && bgMusic) {
-        musicBtn.addEventListener('click', () => {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                musicBtn.innerHTML = '⏸️'; // Icono de pausa
+        const moveToSlide = (index) => {
+            track.style.transform = 'translateX(-' + (index * 100) + '%)';
+            currentIndex = index;
+        };
+
+        if(nextButton && prevButton) {
+            nextButton.addEventListener('click', () => {
+                if (currentIndex < slides.length - 1) {
+                    moveToSlide(currentIndex + 1);
+                } else {
+                    moveToSlide(0);
+                }
+            });
+
+            prevButton.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    moveToSlide(currentIndex - 1);
+                } else {
+                    moveToSlide(slides.length - 1);
+                }
+            });
+        }
+        
+        // Auto play opcional
+        setInterval(() => {
+            if (currentIndex < slides.length - 1) {
+                moveToSlide(currentIndex + 1);
             } else {
-                bgMusic.pause();
-                musicBtn.innerHTML = '🎵'; // Icono de música
+                moveToSlide(0);
             }
-        });
+        }, 6000);
     }
 });

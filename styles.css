@@ -115,19 +115,7 @@ header {
     color: var(--accent-color);
 }
 
-.music-btn-nav {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--navbar-text);
-    transition: transform 0.3s;
-    margin-left: 10px;
-}
 
-.music-btn-nav:hover {
-    transform: scale(1.1);
-}
 
 /* Mobile Menu Button */
 .menu-btn {
@@ -186,7 +174,13 @@ header {
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
+}
+
+.hero-buttons .btn {
+    padding: 1.2rem 3.5rem;
+    font-size: 1.15rem;
+    font-weight: 600;
 }
 
 .btn {
@@ -223,6 +217,87 @@ section {
     text-align: center;
     margin-bottom: 3rem;
     font-weight: 400;
+}
+
+/* Nuestros Clientes */
+.clientes-section {
+    padding-top: 2rem;
+}
+
+/* Carrusel de Clientes */
+.carousel-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 0 1rem;
+}
+
+.carousel-btn {
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0 1rem;
+    transition: transform 0.2s;
+}
+
+.carousel-btn:hover {
+    transform: scale(1.2);
+    color: var(--accent-color);
+}
+
+.review-card {
+    background: white;
+    padding: 1.2rem 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.03);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.review-card .stars {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.review-text {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+}
+
+.review-author {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary-color);
 }
 
 /* Contact & Info */
@@ -366,6 +441,24 @@ footer {
     
     .hero h1 {
         font-size: 2.5rem;
+    }
+    
+    .carousel-slide {
+        padding: 0 0.5rem;
+    }
+    
+    .review-card {
+        padding: 1rem 0.8rem;
+    }
+    
+    .review-text {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .review-card .stars {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
     }
 }
 
