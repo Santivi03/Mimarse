@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.grid-card, .contact-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.6s ease-out';
+        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
         observer.observe(el);
     });
 

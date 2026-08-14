@@ -30,6 +30,7 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
 /* Tema Oscuro Global */
@@ -280,6 +281,7 @@ section {
     max-width: 600px;
     margin: 0 auto;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
 .contact-card p {
@@ -451,7 +453,7 @@ body.dark-theme .pilates-ball {
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     text-align: center;
     border: 1px solid rgba(0,0,0,0.02);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
 .grid-card:hover {
@@ -635,5 +637,46 @@ input:checked + .toggle-slider .pilates-pose circle {
     .theme-toggle-li {
         margin: 1rem 0;
         justify-content: center;
+    }
+
+    /* Ajustes de grilla de horarios para celular */
+    .schedule-container {
+        padding: 0.2rem;
+        border-radius: 8px;
+    }
+    
+    .schedule-table {
+        min-width: 100%;
+        width: 100%;
+        border-spacing: 1px;
+        table-layout: fixed;
+    }
+    
+    .schedule-table th, .schedule-table td {
+        padding: 3px 1px;
+        font-size: 0.55rem;
+        border-radius: 3px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .schedule-table th {
+        font-size: 0.5rem;
+        letter-spacing: -0.5px;
+    }
+    
+    .schedule-table td:first-child {
+        width: 14%; /* Hacer la columna de horas un poco más fina */
+    }
+    
+    .class-name {
+        font-size: 0.55rem;
+        display: block;
+        line-height: 1.1;
+    }
+    
+    .class-desc {
+        display: none; /* Ocultar descripcion para ahorrar espacio */
     }
 }
