@@ -596,12 +596,12 @@ footer {
     }
     
     .schedule-table th, .schedule-table td {
-        padding: 3px 1px;
-        font-size: 0.55rem;
+        padding: 2px 1px;
+        font-size: 0.5rem;
         border-radius: 3px;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        hyphens: auto;
+        hyphens: none;
+        word-break: normal;
+        overflow-wrap: normal;
     }
     
     .schedule-table th {
@@ -614,7 +614,8 @@ footer {
     }
     
     .class-name {
-        font-size: 0.55rem;
+        font-size: 0.48rem;
+        letter-spacing: -0.3px;
         display: block;
         line-height: 1.1;
     }

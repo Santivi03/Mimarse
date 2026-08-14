@@ -25,6 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetView) {
                 targetView.classList.add('active');
                 
+                // Close mobile menu if open
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+                
                 // Scroll down to the view smoothly
                 setTimeout(() => {
                     targetView.scrollIntoView({
@@ -136,14 +141,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-        
-        // Auto play opcional
-        setInterval(() => {
-            if (currentIndex < slides.length - 1) {
-                moveToSlide(currentIndex + 1);
-            } else {
-                moveToSlide(0);
-            }
-        }, 6000);
     }
 });
