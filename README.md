@@ -34,6 +34,6 @@ Si agregás una clase con un nombre nuevo, va a salir con el resorte rojo. Para 
 
 Después de publicar cambios en CSS o JS, subí el número de `?v=` en los links de `index.html` para que los navegadores no usen la versión vieja.
 
-## Antes de publicar
+## Publicación
 
-`og:image` apunta a `img/og.jpg` con ruta relativa. Para que WhatsApp e Instagram muestren la vista previa del link, cambiala por la URL completa del dominio donde se publique el sitio (por ejemplo, `https://tudominio.com/img/og.jpg`).
+El sitio se publica con GitHub Pages desde la rama `main` en `https://santivi03.github.io/Mimarse/`. `og:image` y los datos estructurados apuntan a esa dirección; si el sitio pasa a un dominio propio, actualizalos en `index.html`.
