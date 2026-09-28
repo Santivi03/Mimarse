@@ -174,7 +174,7 @@ La página responde a una pregunta del vecino: qué clase hay, a qué hora, dón
 - **Tinta (`ink`, `ink-soft`):** el texto sobre claro. El secundario (#4A5572) supera 7:1 sobre aluminio.
 - **Riel (`rail`, #BCC4D2):** las líneas de 1px que separan filas y marcan los rieles.
 - **Maple (`maple`, `maple-deep`):** la madera del carro. Solo marca lo que está activo: la sede elegida y la base de la foto del inicio.
-- **Resortes (`spring-*`):** cuatro colores para identificar clases en la lista de clases de cada sede, siempre como un resorte chico dibujado al lado del nombre y nunca como fondo ni como texto. La grilla de horarios no los usa. Rojo: Reformer, Funcional y GAP. Amarillo: Jump y Fit Dance. Verde: Stretching y Gym en Silla. Azul: todas las variantes de Yoga.
+- **Resortes (`spring-*`):** cuatro colores para identificar clases: en Pilates como resorte y en Fit como círculo detrás del ícono de cada actividad, siempre como un resorte chico dibujado al lado del nombre y nunca como fondo ni como texto. La grilla de horarios no los usa. Rojo: Reformer, Funcional y GAP. Amarillo: Jump y Fit Dance. Verde: Stretching y Gym en Silla. Azul: todas las variantes de Yoga.
 - **WhatsApp (`whatsapp`, #12803D):** solo el botón flotante, para que se reconozca de inmediato. Es un verde WhatsApp oscurecido para que el blanco llegue a 5:1.
 
 ## Typography
@@ -224,7 +224,7 @@ No hay brillos, cristales ni sombras de color sobre marino.
 - Reservá el maple para lo activo. Si todo es maple, nada se destaca.
 - Cuando agregues una clase nueva, sumá su palabra clave a `springFor()` en `script.js` si necesita un color distinto del rojo.
 - Mantené los horarios en la tabla del HTML: la lista para celular sale de ahí.
-- No uses emojis como íconos. Los íconos son símbolos SVG del sprite de `index.html`.
+- No uses emojis como íconos. Los íconos son símbolos SVG del sprite de `index.html`, de línea con trazo redondeado. Las actividades de Fit tienen íconos propios (`fit-funcional`, `fit-gap`, `fit-stretching`, `fit-jump`, `fit-silla`, `fit-dance`, `fit-yoga`) sobre un círculo suave del color de su resorte.
 - No publiques precios, promociones ni clases de prueba que el estudio no haya confirmado.
 - No agregues etiquetas chicas encima de los títulos ni tarjetas iguales en fila.
 - No animes lo que no sea el carro, el resorte o el salto de día. Con `prefers-reduced-motion` todo queda quieto.

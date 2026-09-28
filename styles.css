@@ -699,6 +699,27 @@ a {
     mask: var(--spring-mask) center / 100% 100% no-repeat;
 }
 
+/* En Fit cada actividad lleva su ícono propio en lugar del resorte */
+.class-row.has-icon {
+    grid-template-columns: 44px minmax(8rem, 12rem) 1fr;
+}
+
+.class-row.has-icon::before {
+    display: none;
+}
+
+.class-row-icon {
+    align-self: start;
+    width: 44px;
+    height: 44px;
+    margin-top: -0.6rem;
+    padding: 3px;
+    border-radius: 50%;
+    color: var(--navy);
+    background: rgba(27, 41, 69, 0.08);
+    background: color-mix(in srgb, var(--swatch, var(--navy)) 17%, transparent);
+}
+
 .class-row-name {
     font-family: var(--font-display);
     font-size: 1.2rem;
@@ -1224,6 +1245,10 @@ a {
     .class-row {
         grid-template-columns: 24px 1fr;
         row-gap: 0.25rem;
+    }
+
+    .class-row.has-icon {
+        grid-template-columns: 44px 1fr;
     }
 
     .class-row-desc {
