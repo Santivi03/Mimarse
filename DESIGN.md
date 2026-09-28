@@ -108,18 +108,6 @@ components:
     typography: "{typography.title}"
     rounded: "{rounded.sm}"
     height: 64px
-  day-tab-active:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.body-strong}"
-    rounded: "{rounded.sm}"
-    height: 48px
-  day-tab:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.ink-soft}"
-    typography: "{typography.body-strong}"
-    rounded: "{rounded.sm}"
-    height: 48px
   page:
     backgroundColor: "{colors.neutral}"
     textColor: "{colors.ink}"
@@ -198,7 +186,7 @@ El ancho máximo es de 1180px, con márgenes laterales fluidos de 16 a 40px. Las
 
 - El inicio va en dos columnas: el nombre y las acciones a la izquierda, la foto del equipo apoyada sobre el carro a la derecha. Abajo, dos rieles cruzan todo el ancho con un tope circular en cada punta.
 - Las clases son filas sobre rieles, no tarjetas: resorte, nombre y descripción.
-- La grilla semanal conserva el estilo original que eligió la dueña: celdas gris claro (#F8F9FA) redondeadas y separadas 5px, la columna de horas en azul marino con texto blanco, días en mayúscula y nombres de clase en negrita azul, dentro de un panel blanco con sombra. Debajo de 900px, `script.js` la convierte en pestañas por día con una lista del mismo estilo, que arranca en el día de hoy.
+- La grilla semanal conserva el estilo original que eligió la dueña: celdas gris claro (#F8F9FA) redondeadas y separadas 5px, la columna de horas en azul marino con texto blanco, días en mayúscula y nombres de clase en negrita azul, dentro de un panel blanco con sombra. En celular la grilla se muestra entera, sin scroll lateral: los días van abreviados (LUN, MAR…), la sede Pilates omite la palabra "Pilates" en cada celda y las palabras largas se cortan con guion blando (`breaks` en `script.js`).
 - El equipo va en 4 columnas en escritorio, 3 en tablet y 2 en celular, con retratos 4:5 sobre fondo blanco.
 
 ## Elevation & Depth
@@ -222,7 +210,7 @@ No hay brillos, cristales ni sombras de color sobre marino.
 ## Components
 
 - **Selector de sede:** un riel con un tope a la izquierda. El resorte rojo corre por el riel de abajo desde el tope hasta el carro de maple, que se para bajo la sede activa. Al cambiar de sede, el carro se desliza con un leve rebote y el resorte se estira o se encoge. Son pestañas accesibles (`role="tab"`) y se manejan con las flechas.
-- **Pestañas de día (celular):** botones de 48px con el día en mayúscula. El activo va en azul marino, como la columna de horas. Al cambiar de día, la lista salta una fila con un rebote corto.
+- **Grilla en celular:** la misma tabla, comprimida para entrar en 320px de ancho. Texto de 11px, celdas con 2px de separación y radio de 6px.
 - **Botones:** blanco sobre marino o marino sobre claro como primario, y contorno fino como secundario. Todos miden 48px o más de alto, con ícono SVG.
 - **Reseñas:** una cita grande destacada y el resto en columnas, con el autor precedido por una rayita.
 - **Botón flotante de WhatsApp:** verde, se esconde mientras se ven el inicio o el contacto, que ya tienen su propio botón.

@@ -70,94 +70,36 @@ document.addEventListener('DOMContentLoaded', () => {
         row.dataset.spring = springFor(row.querySelector('.class-row-name').textContent);
     });
 
+    // Cortes opcionales (guion blando) para palabras largas en celdas angostas
+    // Cada "|" marca dónde se puede cortar la palabra si no entra en la celda
+    const breaks = {
+        reformer: 'Refor|mer',
+        stretching: 'Stret|ching',
+        funcional: 'Funcio|nal',
+        terapéutico: 'Tera|péu|tico',
+        integral: 'Inte|gral',
+        pilates: 'Pila|tes',
+    };
+    const hyphenate = (text) => text.replace(/\S+/g, (w) => (breaks[w.toLowerCase()] || w).replace(/\|/g, '­'));
+
     // ---------------------------------------------------------------
-    // Grilla: armar la lista por día para celular (arranca en el día de hoy)
+    // Grilla: versión corta de días y clases para que entre entera en el celular
     // ---------------------------------------------------------------
-    const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const todayName = dayNames[new Date().getDay()];
-
-    document.querySelectorAll('.schedule').forEach((schedule, scheduleIndex) => {
-        const table = schedule.querySelector('.schedule-table');
-        const headers = [...table.querySelectorAll('thead th')].slice(1);
-        const days = headers.map((th) => th.textContent.trim());
-        const rows = [...table.querySelectorAll('tbody tr')];
-
-        const todayIndex = days.indexOf(todayName);
-
-        const byDay = days.map((_, i) => rows
-            .map((tr) => ({
-                time: tr.querySelector('th').textContent.trim(),
-                name: (tr.children[i + 1].textContent || '').trim(),
-            }))
-            .filter((slot) => slot.name));
-
-        const view = document.createElement('div');
-        view.className = 'day-view';
-
-        const tabs = document.createElement('div');
-        tabs.className = 'day-tabs';
-        tabs.setAttribute('role', 'tablist');
-        tabs.setAttribute('aria-label', 'Día de la semana');
-
-        const list = document.createElement('div');
-        list.className = 'day-list';
-        list.setAttribute('role', 'tabpanel');
-        list.id = `day-list-${scheduleIndex}`;
-        list.setAttribute('aria-live', 'polite');
-
-        const render = (i, animate) => {
-            [...tabs.children].forEach((tab, j) => {
-                tab.setAttribute('aria-selected', String(i === j));
-                tab.tabIndex = i === j ? 0 : -1;
-            });
-            list.setAttribute('aria-labelledby', tabs.children[i].id);
-
-            list.innerHTML = '';
-            if (!byDay[i].length) {
-                list.innerHTML = '<p class="day-empty">No hay clases este día.</p>';
-            } else {
-                byDay[i].forEach((slot) => {
-                    const row = document.createElement('div');
-                    row.className = 'day-row';
-                    row.innerHTML = '<span class="day-row-time"></span><span class="day-row-name"></span>';
-                    row.children[0].textContent = slot.time;
-                    row.children[1].textContent = slot.name;
-                    list.appendChild(row);
-                });
-            }
-
-            if (animate && !reduceMotion.matches) {
-                list.classList.remove('is-snapping');
-                void list.offsetWidth;
-                list.classList.add('is-snapping');
-            }
-        };
-
-        days.forEach((day, i) => {
-            const tab = document.createElement('button');
-            tab.type = 'button';
-            tab.className = 'day-tab';
-            tab.id = `day-tab-${scheduleIndex}-${i}`;
-            tab.setAttribute('role', 'tab');
-            tab.setAttribute('aria-controls', list.id);
-            tab.setAttribute('aria-label', day);
-            tab.textContent = day.slice(0, 3);
-            tab.addEventListener('click', () => render(i, true));
-            tab.addEventListener('keydown', (e) => {
-                const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-                if (!step) return;
-                e.preventDefault();
-                const next = (i + step + days.length) % days.length;
-                render(next, true);
-                tabs.children[next].focus();
-            });
-            tabs.appendChild(tab);
+    document.querySelectorAll('.schedule-table').forEach((table) => {
+        table.querySelectorAll('thead th:not(:first-child)').forEach((th) => {
+            const day = th.textContent.trim();
+            th.innerHTML = '<span class="t-full"></span><abbr class="t-short"></abbr>';
+            th.children[0].textContent = day;
+            th.children[1].textContent = day.slice(0, 3);
+            th.children[1].title = day;
         });
-
-        view.append(tabs, list);
-        schedule.appendChild(view);
-        schedule.classList.add('has-day-view');
-        render(todayIndex >= 0 ? todayIndex : 0, false);
+        table.querySelectorAll('.class-name').forEach((el) => {
+            const name = el.textContent.trim();
+            const short = hyphenate(name.replace(/^Pilates\s+/i, ''));
+            el.innerHTML = '<span class="t-full"></span><span class="t-short" aria-hidden="true"></span>';
+            el.children[0].textContent = name;
+            el.children[1].textContent = short;
+        });
     });
 
     // ---------------------------------------------------------------

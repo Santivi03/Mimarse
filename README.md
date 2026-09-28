@@ -14,7 +14,7 @@ Después abrí `http://localhost:8765`.
 
 - `index.html`: todo el contenido (clases, horarios, reseñas, equipo, contacto).
 - `styles.css`: estilos. Los colores y tipografías están como variables en `:root`.
-- `script.js`: selector de sede, lista de horarios por día en celular, colores de cada clase y menú.
+- `script.js`: selector de sede, versión compacta de la grilla para celular, colores de cada clase y menú.
 - `img/`: imágenes optimizadas que usa el sitio.
 - `_originales/`: fotos y logo originales, sin tocar. El sitio no las usa.
 - `DESIGN.md`: sistema de diseño (colores, tipografía, componentes y reglas).
@@ -28,7 +28,7 @@ Editá la tabla de la sede en `index.html` (`<table class="schedule-table">`). C
 <td><span class="class-name">Pilates Reformer</span></td>
 ```
 
-Para dejar un hueco, poné `<td></td>`. La lista por día del celular y las referencias de color se arman solas a partir de la tabla.
+Para dejar un hueco, poné `<td></td>`. En celular la tabla se achica sola para verse entera. Si agregás una clase con un nombre largo y en el celular no entra bien, sumá dónde cortarla en `breaks` dentro de `script.js` (por ejemplo `funcional: 'Funcio|nal'`).
 
 Si agregás una clase con un nombre nuevo, va a salir con el resorte rojo. Para darle otro color, sumá su palabra clave en `springFor()` dentro de `script.js`.
 
