@@ -510,19 +510,26 @@ a {
     position: absolute;
     left: 14px;
     top: 100%;
-    height: 12px;
-    width: calc(100% - 14px);
-    transform: translateY(-50%) scaleX(var(--spring-scale, 0));
-    transform-origin: left center;
+    transform: translateY(-50%);
     overflow: visible;
-    z-index: 1;
-    transition: transform 0.55s var(--ease-snap);
+    z-index: 3;
+    pointer-events: none;
 }
 
-.switch-spring path {
+/* Vuelta de atrás del resorte (más tenue) y de adelante */
+.coil-back {
+    fill: none;
+    stroke: #A8362E;
+    stroke-opacity: 0.5;
+    stroke-width: 1.3;
+    stroke-linecap: round;
+}
+
+.coil-front {
     fill: none;
     stroke: var(--spring-red);
-    stroke-width: 1.6;
+    stroke-width: 1.8;
+    stroke-linecap: round;
     stroke-linejoin: round;
 }
 
@@ -542,6 +549,18 @@ a {
 
 .switch.is-ready .switch-carriage {
     opacity: 1;
+}
+
+/* Pie del carro: baja hasta el riel, donde se engancha el resorte */
+.switch-carriage::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    bottom: -7px;
+    width: 10px;
+    height: 7px;
+    border-radius: 0 0 3px 3px;
+    background: var(--maple-deep);
 }
 
 .switch-tab {
@@ -587,6 +606,7 @@ a {
 .switch-addr {
     font-size: 0.85rem;
     font-weight: 500;
+    line-height: 1.3;
 }
 
 /* Panel de cada sede */
@@ -661,7 +681,7 @@ a {
 
 .class-row {
     display: grid;
-    grid-template-columns: 22px minmax(8rem, 12rem) 1fr;
+    grid-template-columns: 24px minmax(8rem, 12rem) 1fr;
     align-items: baseline;
     column-gap: 1rem;
     padding: 1.1rem 0;
@@ -672,8 +692,8 @@ a {
     content: '';
     align-self: start;
     margin-top: 0.6rem;
-    width: 22px;
-    height: 8px;
+    width: 24px;
+    height: 10px;
     background: var(--swatch, var(--rail));
     -webkit-mask: var(--spring-mask) center / 100% 100% no-repeat;
     mask: var(--spring-mask) center / 100% 100% no-repeat;
@@ -693,7 +713,7 @@ a {
 
 /* Resorte chico que marca el color de cada clase */
 :root {
-    --spring-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 8'%3E%3Cpath d='M0 4h2l1.5-3 3 6 3-6 3 6 3-6 3 6 1.5-3h2' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+    --spring-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 10'%3E%3Cpath d='M4.65 8.60 L4.40 8.42 L4.20 7.91 L4.09 7.12 L4.11 6.11 L4.28 5.00 L4.60 3.89 L5.07 2.88 L5.67 2.09 L6.36 1.58 L7.10 1.40 M9.55 8.60 L9.30 8.42 L9.10 7.91 L8.99 7.12 L9.01 6.11 L9.18 5.00 L9.50 3.89 L9.97 2.88 L10.57 2.09 L11.26 1.58 L12.00 1.40 M14.45 8.60 L14.20 8.42 L14.00 7.91 L13.89 7.12 L13.91 6.11 L14.08 5.00 L14.40 3.89 L14.87 2.88 L15.47 2.09 L16.16 1.58 L16.90 1.40 M19.35 8.60 L19.10 8.42 L18.90 7.91 L18.79 7.12 L18.81 6.11 L18.97 5.00 L19.30 3.89 L19.77 2.88 L20.37 2.09 L21.06 1.58 L21.80 1.40' fill='none' stroke='black' stroke-opacity='0.5' stroke-width='1' stroke-linecap='round'/%3E%3Cpath d='M0 5.00 L2.20 1.40 M2.20 1.40 L2.94 1.58 L3.63 2.09 L4.23 2.88 L4.70 3.89 L5.03 5.00 L5.19 6.11 L5.21 7.12 L5.10 7.91 L4.90 8.42 L4.65 8.60 M7.10 1.40 L7.84 1.58 L8.53 2.09 L9.13 2.88 L9.60 3.89 L9.93 5.00 L10.09 6.11 L10.11 7.12 L10.00 7.91 L9.80 8.42 L9.55 8.60 M12.00 1.40 L12.74 1.58 L13.43 2.09 L14.03 2.88 L14.50 3.89 L14.83 5.00 L14.99 6.11 L15.01 7.12 L14.90 7.91 L14.70 8.42 L14.45 8.60 M16.90 1.40 L17.64 1.58 L18.33 2.09 L18.93 2.88 L19.40 3.89 L19.73 5.00 L19.89 6.11 L19.91 7.12 L19.80 7.91 L19.60 8.42 L19.35 8.60 M21.80 1.40 L24.00 5.00' fill='none' stroke='black' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 [data-spring="red"] { --swatch: var(--spring-red); }
@@ -1185,7 +1205,7 @@ a {
     }
 
     .switch {
-        grid-template-columns: 2.25rem 1fr 1fr;
+        grid-template-columns: 3.25rem 1fr 1fr;
     }
 
     .switch-tab {
@@ -1202,7 +1222,7 @@ a {
     }
 
     .class-row {
-        grid-template-columns: 22px 1fr;
+        grid-template-columns: 24px 1fr;
         row-gap: 0.25rem;
     }
 

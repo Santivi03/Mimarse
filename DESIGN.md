@@ -208,11 +208,11 @@ No hay brillos, cristales ni sombras de color sobre marino.
 - Radio de 14px para las superficies: la tabla, la lista por día, las fotos.
 - Pastilla completa solo para el botón flotante de WhatsApp.
 - Líneas de 1px para rieles y separadores. Los topes de los rieles son círculos de 14 a 16px con borde de 1px.
-- El resorte es una línea en zigzag: grande en el selector de sede y chica (22×8px) como marca de cada clase.
+- El resorte es una espiral con rulos visibles: grande en el selector de sede y chica (24×10px) como marca de cada clase.
 
 ## Components
 
-- **Selector de sede:** un riel con un tope a la izquierda. El resorte rojo corre por el riel de abajo desde el tope hasta el carro de maple, que se para bajo la sede activa. Al cambiar de sede, el carro se desliza con un leve rebote y el resorte se estira o se encoge. Son pestañas accesibles (`role="tab"`) y se manejan con las flechas.
+- **Selector de sede:** un riel con un tope a la izquierda. El resorte rojo es una espiral vista de costado (vuelta de atrás más tenue, gancho en la punta) que corre por el riel de abajo desde el tope hasta el pie del carro de maple, que se para sobre la sede activa. `script.js` lo dibuja siguiendo al carro: al estirarse suma vueltas y las separa, sin cambiar el diámetro. Al cambiar de sede, el carro se desliza con un leve rebote y el resorte se estira o se encoge. Son pestañas accesibles (`role="tab"`) y se manejan con las flechas.
 - **Grilla en celular:** la misma tabla, comprimida para entrar en 320px de ancho y casi a todo el ancho de la pantalla. La letra se calcula sola (unos 9 a 10px en un celular de 375px), las celdas tienen 2px de separación y radio de 6px.
 - **Botones:** blanco sobre marino o marino sobre claro como primario, y contorno fino como secundario. Todos miden 48px o más de alto, con ícono SVG.
 - **Reseñas:** una cita grande destacada y el resto en columnas, con el autor precedido por una rayita.

@@ -129,13 +129,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const panels = [...document.querySelectorAll('.sede')];
     const sedeLinks = [...document.querySelectorAll('[data-sede-link]')];
 
+    // Resorte en espiral vista de costado: el diámetro queda fijo y lo que cambia
+    // al estirarse es la separación entre vueltas, como en el reformer.
+    const spring = sw && sw.querySelector('.switch-spring');
+    const carriage = sw && sw.querySelector('.switch-carriage');
+    const coilBack = spring && spring.querySelector('.coil-back');
+    const coilFront = spring && spring.querySelector('.coil-front');
+
+    const drawSpring = (length) => {
+        const lead = 5;       // alambre recto en cada punta
+        const ry = 6.5;       // radio de la espiral
+        const cy = 9;
+        const hook = 2.6;     // gancho que se engancha en el pie del carro
+        const L = Math.max(length, 2 * lead + 16);
+        // Más largo, más vueltas; cada vuelta siempre forma un rulo visible
+        const turns = Math.max(4, Math.min(12, Math.round((L - 2 * lead) / 16)));
+        const pitch = (L - 2 * lead) / turns;
+        const rx = Math.max(2.2, pitch * 0.32);
+        const front = [`M0 ${cy} L${lead} ${cy - ry}`];
+        const back = [];
+
+        for (let half = 0; half < turns * 2; half++) {
+            const pts = [];
+            for (let s = 0; s <= 12; s++) {
+                const t = (half + s / 12) * Math.PI;
+                const x = lead + (pitch * t) / (2 * Math.PI) + rx * Math.sin(t);
+                const y = cy - ry * Math.cos(t);
+                pts.push(`${x.toFixed(2)} ${y.toFixed(2)}`);
+            }
+            (half % 2 === 0 ? front : back).push(`M${pts.join(' L')}`);
+        }
+
+        front.push(`M${(L - lead).toFixed(2)} ${cy - ry} L${L.toFixed(2)} ${cy}`);
+        front.push(`M${(L - hook).toFixed(2)} ${cy} a${hook} ${hook} 0 1 0 ${hook * 2} 0 a${hook} ${hook} 0 1 0 ${-hook * 2} 0`);
+
+        coilFront.setAttribute('d', front.join(' '));
+        coilBack.setAttribute('d', back.join(' '));
+        spring.setAttribute('width', (L + hook + 2).toFixed(1));
+        spring.setAttribute('viewBox', `0 0 ${(L + hook + 2).toFixed(1)} 18`);
+    };
+
+    // El resorte sigue al carro cuadro a cuadro mientras dura su transición
+    let springFrame;
+    const followCarriage = () => {
+        if (!spring) return;
+        cancelAnimationFrame(springFrame);
+        const start = performance.now();
+        const tick = (now) => {
+            const box = sw.getBoundingClientRect();
+            const car = carriage.getBoundingClientRect();
+            drawSpring(car.left - box.left + 11 - 14);
+            if (now - start < 800) springFrame = requestAnimationFrame(tick);
+        };
+        springFrame = requestAnimationFrame(tick);
+    };
+
+    // Redibujo final por si el navegador frenó la animación (pestaña en segundo plano)
+    if (carriage) carriage.addEventListener('transitionend', followCarriage);
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) followCarriage();
+    });
+
     const placeCarriage = () => {
         const active = sedeTabs.find((t) => t.getAttribute('aria-selected') === 'true');
         if (!sw || !active) return;
         sw.style.setProperty('--carriage-x', `${active.offsetLeft}px`);
         sw.style.setProperty('--carriage-w', `${active.offsetWidth}px`);
-        const springRoom = sw.clientWidth - 14;
-        sw.style.setProperty('--spring-scale', springRoom > 0 ? Math.max(0, (active.offsetLeft - 14) / springRoom) : 0);
+        followCarriage();
     };
 
     const selectSede = (id, { focus = false, animate = true } = {}) => {
