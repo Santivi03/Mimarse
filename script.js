@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ---------------------------------------------------------------
-    // Grilla: versión corta de días y clases para que entre entera en el celular
+    // Grilla: días abreviados para que entre entera en el celular
     // ---------------------------------------------------------------
     const tables = [...document.querySelectorAll('.schedule-table')];
 
@@ -82,13 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
             th.children[0].textContent = day;
             th.children[1].textContent = day.slice(0, 3);
             th.children[1].title = day;
-        });
-        table.querySelectorAll('.class-name').forEach((el) => {
-            const name = el.textContent.trim();
-            const short = name.replace(/^Pilates\s+/i, '');
-            el.innerHTML = '<span class="t-full"></span><span class="t-short" aria-hidden="true"></span>';
-            el.children[0].textContent = name;
-            el.children[1].textContent = short;
         });
     });
 
@@ -111,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const family = getComputedStyle(document.body).fontFamily;
 
             const texts = [
-                ...[...table.querySelectorAll('td .t-short')].map((el) => ({ text: el.textContent, weight: 600 })),
+                ...[...table.querySelectorAll('td .class-name')].map((el) => ({ text: el.textContent, weight: 600 })),
                 ...[...table.querySelectorAll('thead .t-short')].map((el) => ({ text: el.textContent.toUpperCase(), weight: 700 })),
             ];
             let widest = 0;

@@ -189,7 +189,7 @@ El ancho máximo es de 1180px, con márgenes laterales fluidos de 16 a 40px. Las
 
 - El inicio va en dos columnas: el nombre y las acciones a la izquierda, la foto del equipo apoyada sobre el carro a la derecha. Abajo, dos rieles cruzan todo el ancho con un tope circular en cada punta.
 - Las clases son filas sobre rieles, no tarjetas: resorte, nombre y descripción.
-- La grilla semanal conserva el estilo original que eligió la dueña: celdas gris claro (#F8F9FA) redondeadas y separadas 5px, la columna de horas en azul marino con texto blanco, días en mayúscula y nombres de clase en negrita azul, dentro de un panel blanco con sombra. En celular la grilla se muestra entera, sin scroll lateral: los días van abreviados (LUN, MAR…), la sede Pilates omite la palabra "Pilates" en cada celda y las palabras nunca se cortan con guion: `script.js` mide la palabra más larga y achica la letra de esa grilla lo justo para que entre (hasta 12px como máximo).
+- La grilla semanal conserva el estilo original que eligió la dueña: celdas gris claro (#F8F9FA) redondeadas y separadas 5px, la columna de horas en azul marino con texto blanco, días en mayúscula y nombres de clase en negrita azul, dentro de un panel blanco con sombra. En celular la grilla se muestra entera, sin scroll lateral: los días van abreviados (LUN, MAR…), los nombres de clase van completos ("Pilates Reformer" en dos renglones) y las palabras nunca se cortan con guion: `script.js` mide la palabra más larga y achica la letra de esa grilla lo justo para que entre (hasta 12px como máximo).
 - El equipo va en 4 columnas en escritorio, 3 en tablet y 2 en celular, con retratos 4:5 sobre fondo blanco.
 
 ## Elevation & Depth
