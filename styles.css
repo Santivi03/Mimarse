@@ -1114,10 +1114,12 @@ a {
 
 }
 
-/* Celular y tablet chica: la grilla entera entra en el ancho de la pantalla */
+/* Celular y tablet chica: la grilla entera entra en el ancho de la pantalla.
+   script.js calcula --grid-font para que la palabra más larga entre sin cortarse. */
 @media (max-width: 760px) {
     .table-wrap {
-        padding: 4px;
+        margin: 0 calc(var(--gutter) * -1 + 6px);
+        padding: 3px;
         border-radius: 12px;
         overflow: visible;
     }
@@ -1130,26 +1132,30 @@ a {
 
     .schedule-table th,
     .schedule-table td {
-        padding: 7px 1px;
+        padding: 8px 2px;
         border-radius: 6px;
-        font-size: 0.7rem;
-        line-height: 1.15;
+        font-size: var(--grid-font, 0.7rem);
+        line-height: 1.2;
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: manual;
     }
 
     .schedule-table thead th {
-        font-size: 0.68rem;
-        letter-spacing: 0.2px;
+        font-size: var(--grid-font, 0.7rem);
+        letter-spacing: 0;
         padding: 6px 0;
     }
 
     .schedule-table thead th:first-child,
     .schedule-table tbody th {
-        width: 2.3rem;
+        width: 2.1rem;
+        font-size: 0.66rem;
     }
 
     .class-name {
-        font-size: 0.7rem;
-        line-height: 1.15;
+        font-size: var(--grid-font, 0.7rem);
+        line-height: 1.2;
     }
 
     .t-full {

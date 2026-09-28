@@ -28,7 +28,7 @@ Editá la tabla de la sede en `index.html` (`<table class="schedule-table">`). C
 <td><span class="class-name">Pilates Reformer</span></td>
 ```
 
-Para dejar un hueco, poné `<td></td>`. En celular la tabla se achica sola para verse entera. Si agregás una clase con un nombre largo y en el celular no entra bien, sumá dónde cortarla en `breaks` dentro de `script.js` (por ejemplo `funcional: 'Funcio|nal'`).
+Para dejar un hueco, poné `<td></td>`. En celular la tabla se achica sola para verse entera: la letra se ajusta a la palabra más larga, así que un nombre de clase muy largo hace que toda la grilla se vea más chica.
 
 Si agregás una clase con un nombre nuevo, va a salir con el resorte rojo. Para darle otro color, sumá su palabra clave en `springFor()` dentro de `script.js`.
 

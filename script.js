@@ -70,22 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
         row.dataset.spring = springFor(row.querySelector('.class-row-name').textContent);
     });
 
-    // Cortes opcionales (guion blando) para palabras largas en celdas angostas
-    // Cada "|" marca dónde se puede cortar la palabra si no entra en la celda
-    const breaks = {
-        reformer: 'Refor|mer',
-        stretching: 'Stret|ching',
-        funcional: 'Funcio|nal',
-        terapéutico: 'Tera|péu|tico',
-        integral: 'Inte|gral',
-        pilates: 'Pila|tes',
-    };
-    const hyphenate = (text) => text.replace(/\S+/g, (w) => (breaks[w.toLowerCase()] || w).replace(/\|/g, '­'));
-
     // ---------------------------------------------------------------
     // Grilla: versión corta de días y clases para que entre entera en el celular
     // ---------------------------------------------------------------
-    document.querySelectorAll('.schedule-table').forEach((table) => {
+    const tables = [...document.querySelectorAll('.schedule-table')];
+
+    tables.forEach((table) => {
         table.querySelectorAll('thead th:not(:first-child)').forEach((th) => {
             const day = th.textContent.trim();
             th.innerHTML = '<span class="t-full"></span><abbr class="t-short"></abbr>';
@@ -95,12 +85,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         table.querySelectorAll('.class-name').forEach((el) => {
             const name = el.textContent.trim();
-            const short = hyphenate(name.replace(/^Pilates\s+/i, ''));
+            const short = name.replace(/^Pilates\s+/i, '');
             el.innerHTML = '<span class="t-full"></span><span class="t-short" aria-hidden="true"></span>';
             el.children[0].textContent = name;
             el.children[1].textContent = short;
         });
     });
+
+    // En celular, la letra de la grilla se achica lo justo para que la palabra
+    // más larga entre entera en su celda (sin cortar palabras)
+    const compactGrid = window.matchMedia('(max-width: 760px)');
+    const measure = document.createElement('canvas').getContext('2d');
+
+    const fitGrid = () => {
+        tables.forEach((table) => {
+            if (!compactGrid.matches) {
+                table.style.removeProperty('--grid-font');
+                return;
+            }
+            const cell = table.querySelector('tbody td');
+            if (!cell || !cell.offsetWidth) return; // sede oculta: se ajusta al mostrarla
+
+            const style = getComputedStyle(cell);
+            const room = cell.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight) - 1;
+            const family = getComputedStyle(document.body).fontFamily;
+
+            const texts = [
+                ...[...table.querySelectorAll('td .t-short')].map((el) => ({ text: el.textContent, weight: 600 })),
+                ...[...table.querySelectorAll('thead .t-short')].map((el) => ({ text: el.textContent.toUpperCase(), weight: 700 })),
+            ];
+            let widest = 0;
+            texts.forEach(({ text, weight }) => {
+                measure.font = `${weight} 100px ${family}`;
+                text.split(/\s+/).forEach((word) => {
+                    widest = Math.max(widest, measure.measureText(word).width / 100);
+                });
+            });
+            if (!widest) return;
+
+            const size = Math.min(12, room / widest);
+            table.style.setProperty('--grid-font', `${size.toFixed(2)}px`);
+        });
+    };
 
     // ---------------------------------------------------------------
     // Selector de sede: el carro corre por el riel y estira el resorte
@@ -136,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         placeCarriage();
+        fitGrid();
     };
 
     sedeTabs.forEach((tab, i) => {
@@ -178,6 +205,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // El carro aparece recién cuando está en su lugar
     requestAnimationFrame(() => sw && sw.classList.add('is-ready'));
-    window.addEventListener('resize', placeCarriage);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeCarriage);
+    window.addEventListener('resize', () => {
+        placeCarriage();
+        fitGrid();
+    });
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            placeCarriage();
+            fitGrid();
+        });
+    }
 });
