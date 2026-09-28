@@ -699,6 +699,22 @@ a {
     mask: var(--spring-mask) center / 100% 100% no-repeat;
 }
 
+/* En Fit cada actividad lleva su emoji en lugar del resorte */
+.class-row.has-emoji::before {
+    display: none;
+}
+
+.class-row.has-emoji {
+    grid-template-columns: 30px minmax(8rem, 12rem) 1fr;
+}
+
+.class-row-emoji {
+    align-self: start;
+    font-size: 1.6rem;
+    line-height: 1;
+    text-align: center;
+}
+
 .class-row-name {
     font-family: var(--font-display);
     font-size: 1.2rem;
@@ -1224,6 +1240,10 @@ a {
     .class-row {
         grid-template-columns: 24px 1fr;
         row-gap: 0.25rem;
+    }
+
+    .class-row.has-emoji {
+        grid-template-columns: 30px 1fr;
     }
 
     .class-row-desc {
