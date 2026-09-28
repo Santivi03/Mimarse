@@ -14,13 +14,14 @@
     <meta property="og:locale" content="es_AR">
     <meta property="og:title" content="Mimarse Estudio | Pilates y Fit en Villa del Parque">
     <meta property="og:description" content="Pilates reformer, funcional, yoga y más en dos sedes de Villa del Parque.">
-    <meta property="og:image" content="img/og.jpg">
+    <meta property="og:image" content="https://santivi03.github.io/Mimarse/img/og.jpg">
+    <meta property="og:url" content="https://santivi03.github.io/Mimarse/">
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css?v=16">
 
     <script type="application/ld+json">
     [
@@ -29,7 +30,7 @@
             "@type": "ExerciseGym",
             "name": "Mimarse Pilates",
             "description": "Pilates Reformer, Pilates Stretching y Yoga Pilates.",
-            "image": "img/og.jpg",
+            "image": "https://santivi03.github.io/Mimarse/img/og.jpg",
             "telephone": "+5491144092801",
             "address": {
                 "@type": "PostalAddress",
@@ -44,7 +45,7 @@
             "@type": "ExerciseGym",
             "name": "Mimarse Fit",
             "description": "Funcional, GAP, Stretching, Jump, Gym en Silla, Fit Dance y Yoga.",
-            "image": "img/og.jpg",
+            "image": "https://santivi03.github.io/Mimarse/img/og.jpg",
             "telephone": "+5491144092801",
             "address": {
                 "@type": "PostalAddress",
@@ -153,9 +154,7 @@
                 <!-- Selector de sede: un carro que corre sobre el riel -->
                 <div class="switch" role="tablist" aria-label="Sede">
                     <span class="switch-stop" aria-hidden="true"></span>
-                    <svg class="switch-spring" aria-hidden="true" viewBox="0 0 100 12" preserveAspectRatio="none">
-                        <path d="M0 6h6l2-5 4 10 4-10 4 10 4-10 4 10 4-10 4 10 4-10 4 10 4-10 4 10 4-10 4 10 4-10 4 10 4-10 4 10 4-10 4 10 2-5h6" vector-effect="non-scaling-stroke"/>
-                    </svg>
+                    <svg class="switch-spring" aria-hidden="true" focusable="false" height="18"><path class="coil-back"/><path class="coil-front"/></svg>
                     <span class="switch-carriage" aria-hidden="true"></span>
                     <button class="switch-tab" role="tab" id="tab-pilates" aria-selected="true" aria-controls="pilates" data-sede="pilates" type="button">
                         <span class="switch-name">Pilates</span>
@@ -168,7 +167,7 @@
                 </div>
 
                 <!-- SEDE PILATES -->
-                <div class="sede" id="pilates" role="tabpanel" aria-labelledby="tab-pilates" tabindex="0">
+                <div class="sede" id="pilates" role="tabpanel" aria-labelledby="tab-pilates">
                     <div class="sede-grid">
                         <div class="sede-info">
                             <h3 class="sede-title">Mimarse Pilates</h3>
@@ -198,9 +197,8 @@
                     <div class="schedule">
                         <div class="schedule-head">
                             <h4 class="schedule-title">Grilla semanal</h4>
-                            <ul class="legend" aria-label="Referencias de color"></ul>
                         </div>
-                        <!-- Para cambiar horarios: editá esta tabla. En celular se arma sola una lista por día. -->
+                        <!-- Para cambiar horarios: editá esta tabla. En celular se achica sola para entrar entera en la pantalla. -->
                         <div class="table-wrap">
                             <table class="schedule-table">
                                 <caption class="sr-only">Horarios de Mimarse Pilates</caption>
@@ -313,7 +311,7 @@
                 </div>
 
                 <!-- SEDE FIT -->
-                <div class="sede" id="fit" role="tabpanel" aria-labelledby="tab-fit" tabindex="0">
+                <div class="sede" id="fit" role="tabpanel" aria-labelledby="tab-fit">
                     <div class="sede-grid">
                         <div class="sede-info">
                             <h3 class="sede-title">Mimarse Fit</h3>
@@ -358,7 +356,6 @@
                     <div class="schedule">
                         <div class="schedule-head">
                             <h4 class="schedule-title">Grilla semanal</h4>
-                            <ul class="legend" aria-label="Referencias de color"></ul>
                         </div>
                         <div class="table-wrap">
                             <table class="schedule-table">
@@ -613,6 +610,6 @@
         <span>Escribinos</span>
     </a>
 
-    <script src="script.js?v=6"></script>
+    <script src="script.js?v=16"></script>
 </body>
 </html>

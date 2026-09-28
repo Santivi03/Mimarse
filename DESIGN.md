@@ -108,18 +108,9 @@ components:
     typography: "{typography.title}"
     rounded: "{rounded.sm}"
     height: 64px
-  day-tab-active:
-    backgroundColor: "{colors.maple}"
-    textColor: "{colors.primary}"
-    typography: "{typography.body-strong}"
-    rounded: "{rounded.sm}"
-    height: 48px
-  day-tab:
-    backgroundColor: "{colors.surface}"
+  secondary-text:
     textColor: "{colors.ink-soft}"
-    typography: "{typography.body-strong}"
-    rounded: "{rounded.sm}"
-    height: 48px
+    typography: "{typography.caption}"
   page:
     backgroundColor: "{colors.neutral}"
     textColor: "{colors.ink}"
@@ -182,8 +173,8 @@ La página responde a una pregunta del vecino: qué clase hay, a qué hora, dón
 - **Aluminio (`neutral`, #EEF1F5):** el suelo de las secciones claras. Es un gris frío a propósito, para no caer en el crema de siempre.
 - **Tinta (`ink`, `ink-soft`):** el texto sobre claro. El secundario (#4A5572) supera 7:1 sobre aluminio.
 - **Riel (`rail`, #BCC4D2):** las líneas de 1px que separan filas y marcan los rieles.
-- **Maple (`maple`, `maple-deep`):** la madera del carro. Solo marca lo que está activo: la sede elegida, el día elegido, la columna de hoy y la base de la foto del inicio.
-- **Resortes (`spring-*`):** cuatro colores para identificar clases, siempre como un resorte chico dibujado al lado del nombre y nunca como fondo ni como texto. Rojo: Reformer, Funcional y GAP. Amarillo: Jump y Fit Dance. Verde: Stretching y Gym en Silla. Azul: todas las variantes de Yoga.
+- **Maple (`maple`, `maple-deep`):** la madera del carro. Solo marca lo que está activo: la sede elegida y la base de la foto del inicio.
+- **Resortes (`spring-*`):** cuatro colores para identificar clases en la lista de clases de cada sede, siempre como un resorte chico dibujado al lado del nombre y nunca como fondo ni como texto. La grilla de horarios no los usa. Rojo: Reformer, Funcional y GAP. Amarillo: Jump y Fit Dance. Verde: Stretching y Gym en Silla. Azul: todas las variantes de Yoga.
 - **WhatsApp (`whatsapp`, #12803D):** solo el botón flotante, para que se reconozca de inmediato. Es un verde WhatsApp oscurecido para que el blanco llegue a 5:1.
 
 ## Typography
@@ -198,7 +189,7 @@ El ancho máximo es de 1180px, con márgenes laterales fluidos de 16 a 40px. Las
 
 - El inicio va en dos columnas: el nombre y las acciones a la izquierda, la foto del equipo apoyada sobre el carro a la derecha. Abajo, dos rieles cruzan todo el ancho con un tope circular en cada punta.
 - Las clases son filas sobre rieles, no tarjetas: resorte, nombre y descripción.
-- La grilla semanal es una tabla en escritorio. Debajo de 900px, `script.js` la convierte en pestañas por día con una lista, y arranca en el día de hoy.
+- La grilla semanal conserva el estilo original que eligió la dueña: celdas gris claro (#F8F9FA) redondeadas y separadas 5px, la columna de horas en azul marino con texto blanco, días en mayúscula y nombres de clase en negrita azul, dentro de un panel blanco con sombra. En celular la grilla se muestra entera, sin scroll lateral: los días van abreviados (LUN, MAR…), los nombres de clase van completos ("Pilates Reformer" en dos renglones) y las palabras nunca se cortan con guion: `script.js` mide la palabra más larga y achica la letra de esa grilla lo justo para que entre (hasta 12px como máximo).
 - El equipo va en 4 columnas en escritorio, 3 en tablet y 2 en celular, con retratos 4:5 sobre fondo blanco.
 
 ## Elevation & Depth
@@ -217,12 +208,12 @@ No hay brillos, cristales ni sombras de color sobre marino.
 - Radio de 14px para las superficies: la tabla, la lista por día, las fotos.
 - Pastilla completa solo para el botón flotante de WhatsApp.
 - Líneas de 1px para rieles y separadores. Los topes de los rieles son círculos de 14 a 16px con borde de 1px.
-- El resorte es una línea en zigzag: grande en el selector de sede y chica (22×8px) como marca de cada clase.
+- El resorte es una espiral con rulos visibles: grande en el selector de sede y chica (24×10px) como marca de cada clase.
 
 ## Components
 
-- **Selector de sede:** un riel con un tope a la izquierda. El resorte rojo corre por el riel de abajo desde el tope hasta el carro de maple, que se para bajo la sede activa. Al cambiar de sede, el carro se desliza con un leve rebote y el resorte se estira o se encoge. Son pestañas accesibles (`role="tab"`) y se manejan con las flechas.
-- **Pestañas de día (celular):** botones de 48px. El activo va en maple. Al cambiar de día, la lista salta una fila con un rebote corto.
+- **Selector de sede:** un riel con un tope a la izquierda. El resorte rojo es una espiral vista de costado (vuelta de atrás más tenue, gancho en la punta) que corre por el riel de abajo desde el tope hasta el pie del carro de maple, que se para sobre la sede activa. `script.js` lo dibuja siguiendo al carro: al estirarse suma vueltas y las separa, sin cambiar el diámetro. Al cambiar de sede, el carro se desliza con un leve rebote y el resorte se estira o se encoge. Son pestañas accesibles (`role="tab"`) y se manejan con las flechas.
+- **Grilla en celular:** la misma tabla, comprimida para entrar en 320px de ancho y casi a todo el ancho de la pantalla. La letra se calcula sola (unos 9 a 10px en un celular de 375px), las celdas tienen 2px de separación y radio de 6px.
 - **Botones:** blanco sobre marino o marino sobre claro como primario, y contorno fino como secundario. Todos miden 48px o más de alto, con ícono SVG.
 - **Reseñas:** una cita grande destacada y el resto en columnas, con el autor precedido por una rayita.
 - **Botón flotante de WhatsApp:** verde, se esconde mientras se ven el inicio o el contacto, que ya tienen su propio botón.

@@ -70,120 +70,56 @@ document.addEventListener('DOMContentLoaded', () => {
         row.dataset.spring = springFor(row.querySelector('.class-row-name').textContent);
     });
 
-    document.querySelectorAll('.class-name').forEach((el) => {
-        el.dataset.spring = springFor(el.textContent);
-    });
-
-    // Referencias de color: una por clase que aparece en la grilla
-    document.querySelectorAll('.schedule').forEach((schedule) => {
-        const legend = schedule.querySelector('.legend');
-        const names = [...new Set([...schedule.querySelectorAll('.class-name')].map((el) => el.textContent.trim()))];
-        const order = { red: 0, yellow: 1, green: 2, blue: 3 };
-        names
-            .sort((a, b) => order[springFor(a)] - order[springFor(b)] || a.localeCompare(b, 'es'))
-            .forEach((name) => {
-                const li = document.createElement('li');
-                li.dataset.spring = springFor(name);
-                li.textContent = name;
-                legend.appendChild(li);
-            });
-    });
-
     // ---------------------------------------------------------------
-    // Grilla: marcar hoy y armar la lista por día para celular
+    // Grilla: días abreviados para que entre entera en el celular
     // ---------------------------------------------------------------
-    const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const todayName = dayNames[new Date().getDay()];
+    const tables = [...document.querySelectorAll('.schedule-table')];
 
-    document.querySelectorAll('.schedule').forEach((schedule, scheduleIndex) => {
-        const table = schedule.querySelector('.schedule-table');
-        const headers = [...table.querySelectorAll('thead th')].slice(1);
-        const days = headers.map((th) => th.textContent.trim());
-        const rows = [...table.querySelectorAll('tbody tr')];
-
-        const todayIndex = days.indexOf(todayName);
-        if (todayIndex >= 0) {
-            headers[todayIndex].classList.add('is-today');
-            headers[todayIndex].insertAdjacentHTML('beforeend', '<span class="sr-only"> (hoy)</span>');
-            rows.forEach((tr) => tr.children[todayIndex + 1].classList.add('is-today'));
-        }
-
-        const byDay = days.map((_, i) => rows
-            .map((tr) => ({
-                time: tr.querySelector('th').textContent.trim(),
-                name: (tr.children[i + 1].textContent || '').trim(),
-            }))
-            .filter((slot) => slot.name));
-
-        const view = document.createElement('div');
-        view.className = 'day-view';
-
-        const tabs = document.createElement('div');
-        tabs.className = 'day-tabs';
-        tabs.setAttribute('role', 'tablist');
-        tabs.setAttribute('aria-label', 'Día de la semana');
-
-        const list = document.createElement('div');
-        list.className = 'day-list';
-        list.setAttribute('role', 'tabpanel');
-        list.id = `day-list-${scheduleIndex}`;
-        list.setAttribute('aria-live', 'polite');
-
-        const render = (i, animate) => {
-            [...tabs.children].forEach((tab, j) => {
-                tab.setAttribute('aria-selected', String(i === j));
-                tab.tabIndex = i === j ? 0 : -1;
-            });
-            list.setAttribute('aria-labelledby', tabs.children[i].id);
-
-            list.innerHTML = '';
-            if (!byDay[i].length) {
-                list.innerHTML = '<p class="day-empty">No hay clases este día.</p>';
-            } else {
-                byDay[i].forEach((slot) => {
-                    const row = document.createElement('div');
-                    row.className = 'day-row';
-                    row.innerHTML = '<span class="day-row-time"></span><span class="day-row-name"></span>';
-                    row.children[0].textContent = slot.time;
-                    row.children[1].textContent = slot.name;
-                    row.children[1].dataset.spring = springFor(slot.name);
-                    list.appendChild(row);
-                });
-            }
-
-            if (animate && !reduceMotion.matches) {
-                list.classList.remove('is-snapping');
-                void list.offsetWidth;
-                list.classList.add('is-snapping');
-            }
-        };
-
-        days.forEach((day, i) => {
-            const tab = document.createElement('button');
-            tab.type = 'button';
-            tab.className = 'day-tab';
-            tab.id = `day-tab-${scheduleIndex}-${i}`;
-            tab.setAttribute('role', 'tab');
-            tab.setAttribute('aria-controls', list.id);
-            tab.setAttribute('aria-label', day);
-            tab.textContent = day.slice(0, 3);
-            tab.addEventListener('click', () => render(i, true));
-            tab.addEventListener('keydown', (e) => {
-                const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-                if (!step) return;
-                e.preventDefault();
-                const next = (i + step + days.length) % days.length;
-                render(next, true);
-                tabs.children[next].focus();
-            });
-            tabs.appendChild(tab);
+    tables.forEach((table) => {
+        table.querySelectorAll('thead th:not(:first-child)').forEach((th) => {
+            const day = th.textContent.trim();
+            th.innerHTML = '<span class="t-full"></span><abbr class="t-short"></abbr>';
+            th.children[0].textContent = day;
+            th.children[1].textContent = day.slice(0, 3);
+            th.children[1].title = day;
         });
-
-        view.append(tabs, list);
-        schedule.appendChild(view);
-        schedule.classList.add('has-day-view');
-        render(todayIndex >= 0 ? todayIndex : 0, false);
     });
+
+    // En celular, la letra de la grilla se achica lo justo para que la palabra
+    // más larga entre entera en su celda (sin cortar palabras)
+    const compactGrid = window.matchMedia('(max-width: 760px)');
+    const measure = document.createElement('canvas').getContext('2d');
+
+    const fitGrid = () => {
+        tables.forEach((table) => {
+            if (!compactGrid.matches) {
+                table.style.removeProperty('--grid-font');
+                return;
+            }
+            const cell = table.querySelector('tbody td');
+            if (!cell || !cell.offsetWidth) return; // sede oculta: se ajusta al mostrarla
+
+            const style = getComputedStyle(cell);
+            const room = cell.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight) - 1;
+            const family = getComputedStyle(document.body).fontFamily;
+
+            const texts = [
+                ...[...table.querySelectorAll('td .class-name')].map((el) => ({ text: el.textContent, weight: 600 })),
+                ...[...table.querySelectorAll('thead .t-short')].map((el) => ({ text: el.textContent.toUpperCase(), weight: 700 })),
+            ];
+            let widest = 0;
+            texts.forEach(({ text, weight }) => {
+                measure.font = `${weight} 100px ${family}`;
+                text.split(/\s+/).forEach((word) => {
+                    widest = Math.max(widest, measure.measureText(word).width / 100);
+                });
+            });
+            if (!widest) return;
+
+            const size = Math.min(12, room / widest);
+            table.style.setProperty('--grid-font', `${size.toFixed(2)}px`);
+        });
+    };
 
     // ---------------------------------------------------------------
     // Selector de sede: el carro corre por el riel y estira el resorte
@@ -193,13 +129,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const panels = [...document.querySelectorAll('.sede')];
     const sedeLinks = [...document.querySelectorAll('[data-sede-link]')];
 
+    // Resorte en espiral vista de costado: el diámetro queda fijo y lo que cambia
+    // al estirarse es la separación entre vueltas, como en el reformer.
+    const spring = sw && sw.querySelector('.switch-spring');
+    const carriage = sw && sw.querySelector('.switch-carriage');
+    const coilBack = spring && spring.querySelector('.coil-back');
+    const coilFront = spring && spring.querySelector('.coil-front');
+
+    const drawSpring = (length) => {
+        const lead = 5;       // alambre recto en cada punta
+        const ry = 6.5;       // radio de la espiral
+        const cy = 9;
+        const hook = 2.6;     // gancho que se engancha en el pie del carro
+        const L = Math.max(length, 2 * lead + 16);
+        // Más largo, más vueltas; cada vuelta siempre forma un rulo visible
+        const turns = Math.max(4, Math.min(12, Math.round((L - 2 * lead) / 16)));
+        const pitch = (L - 2 * lead) / turns;
+        const rx = Math.max(2.2, pitch * 0.32);
+        const front = [`M0 ${cy} L${lead} ${cy - ry}`];
+        const back = [];
+
+        for (let half = 0; half < turns * 2; half++) {
+            const pts = [];
+            for (let s = 0; s <= 12; s++) {
+                const t = (half + s / 12) * Math.PI;
+                const x = lead + (pitch * t) / (2 * Math.PI) + rx * Math.sin(t);
+                const y = cy - ry * Math.cos(t);
+                pts.push(`${x.toFixed(2)} ${y.toFixed(2)}`);
+            }
+            (half % 2 === 0 ? front : back).push(`M${pts.join(' L')}`);
+        }
+
+        front.push(`M${(L - lead).toFixed(2)} ${cy - ry} L${L.toFixed(2)} ${cy}`);
+        front.push(`M${(L - hook).toFixed(2)} ${cy} a${hook} ${hook} 0 1 0 ${hook * 2} 0 a${hook} ${hook} 0 1 0 ${-hook * 2} 0`);
+
+        coilFront.setAttribute('d', front.join(' '));
+        coilBack.setAttribute('d', back.join(' '));
+        spring.setAttribute('width', (L + hook + 2).toFixed(1));
+        spring.setAttribute('viewBox', `0 0 ${(L + hook + 2).toFixed(1)} 18`);
+    };
+
+    // El resorte sigue al carro cuadro a cuadro mientras dura su transición
+    let springFrame;
+    const followCarriage = () => {
+        if (!spring) return;
+        cancelAnimationFrame(springFrame);
+        const start = performance.now();
+        const tick = (now) => {
+            const box = sw.getBoundingClientRect();
+            const car = carriage.getBoundingClientRect();
+            drawSpring(car.left - box.left + 11 - 14);
+            if (now - start < 800) springFrame = requestAnimationFrame(tick);
+        };
+        springFrame = requestAnimationFrame(tick);
+    };
+
+    // Redibujo final por si el navegador frenó la animación (pestaña en segundo plano)
+    if (carriage) carriage.addEventListener('transitionend', followCarriage);
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) followCarriage();
+    });
+
     const placeCarriage = () => {
         const active = sedeTabs.find((t) => t.getAttribute('aria-selected') === 'true');
         if (!sw || !active) return;
         sw.style.setProperty('--carriage-x', `${active.offsetLeft}px`);
         sw.style.setProperty('--carriage-w', `${active.offsetWidth}px`);
-        const springRoom = sw.clientWidth - 14;
-        sw.style.setProperty('--spring-scale', springRoom > 0 ? Math.max(0, (active.offsetLeft - 14) / springRoom) : 0);
+        followCarriage();
     };
 
     const selectSede = (id, { focus = false, animate = true } = {}) => {
@@ -219,6 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         placeCarriage();
+        fitGrid();
     };
 
     sedeTabs.forEach((tab, i) => {
@@ -250,6 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (id === 'pilates' || id === 'fit') {
             selectSede(id, { animate: false });
             document.getElementById('sedes').scrollIntoView();
+            // El navegador enfoca el panel al abrir un link con #pilates o #fit; sin recuadro en ese caso
+            if (document.activeElement && document.activeElement.classList.contains('sede')) document.activeElement.blur();
         }
     };
 
@@ -259,6 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // El carro aparece recién cuando está en su lugar
     requestAnimationFrame(() => sw && sw.classList.add('is-ready'));
-    window.addEventListener('resize', placeCarriage);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeCarriage);
+    window.addEventListener('resize', () => {
+        placeCarriage();
+        fitGrid();
+    });
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            placeCarriage();
+            fitGrid();
+        });
+    }
 });
