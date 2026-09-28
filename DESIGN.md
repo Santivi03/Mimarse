@@ -108,6 +108,9 @@ components:
     typography: "{typography.title}"
     rounded: "{rounded.sm}"
     height: 64px
+  secondary-text:
+    textColor: "{colors.ink-soft}"
+    typography: "{typography.caption}"
   page:
     backgroundColor: "{colors.neutral}"
     textColor: "{colors.ink}"
