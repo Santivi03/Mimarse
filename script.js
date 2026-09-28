@@ -70,27 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         row.dataset.spring = springFor(row.querySelector('.class-row-name').textContent);
     });
 
-    document.querySelectorAll('.class-name').forEach((el) => {
-        el.dataset.spring = springFor(el.textContent);
-    });
-
-    // Referencias de color: una por clase que aparece en la grilla
-    document.querySelectorAll('.schedule').forEach((schedule) => {
-        const legend = schedule.querySelector('.legend');
-        const names = [...new Set([...schedule.querySelectorAll('.class-name')].map((el) => el.textContent.trim()))];
-        const order = { red: 0, yellow: 1, green: 2, blue: 3 };
-        names
-            .sort((a, b) => order[springFor(a)] - order[springFor(b)] || a.localeCompare(b, 'es'))
-            .forEach((name) => {
-                const li = document.createElement('li');
-                li.dataset.spring = springFor(name);
-                li.textContent = name;
-                legend.appendChild(li);
-            });
-    });
-
     // ---------------------------------------------------------------
-    // Grilla: marcar hoy y armar la lista por día para celular
+    // Grilla: armar la lista por día para celular (arranca en el día de hoy)
     // ---------------------------------------------------------------
     const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const todayName = dayNames[new Date().getDay()];
@@ -102,11 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const rows = [...table.querySelectorAll('tbody tr')];
 
         const todayIndex = days.indexOf(todayName);
-        if (todayIndex >= 0) {
-            headers[todayIndex].classList.add('is-today');
-            headers[todayIndex].insertAdjacentHTML('beforeend', '<span class="sr-only"> (hoy)</span>');
-            rows.forEach((tr) => tr.children[todayIndex + 1].classList.add('is-today'));
-        }
 
         const byDay = days.map((_, i) => rows
             .map((tr) => ({
@@ -146,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     row.innerHTML = '<span class="day-row-time"></span><span class="day-row-name"></span>';
                     row.children[0].textContent = slot.time;
                     row.children[1].textContent = slot.name;
-                    row.children[1].dataset.spring = springFor(slot.name);
                     list.appendChild(row);
                 });
             }
@@ -250,6 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (id === 'pilates' || id === 'fit') {
             selectSede(id, { animate: false });
             document.getElementById('sedes').scrollIntoView();
+            // El navegador enfoca el panel al abrir un link con #pilates o #fit; sin recuadro en ese caso
+            if (document.activeElement && document.activeElement.classList.contains('sede')) document.activeElement.blur();
         }
     };
 
